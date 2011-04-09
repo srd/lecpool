@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_filter :require_no_user, :only => [:new, :create]
   before_filter :require_user, :only => [:show, :edit, :update]
-  before_filter :admin_user, :only => [:show]
+  before_filter :admin_or_current_user_required, :only => [:show]  
   def new
     @title = "Sign up"
     @user = User.new
@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = @current_user
+    @user = User.find(params[:id])
   end
 
   def edit
@@ -40,11 +40,12 @@ class UsersController < ApplicationController
     end
   end
   
-  private
+  protected
   
-  def admin_user
-    @user = @current_user
-    redirect_to users_path unless @user.admin?
-  end
-
+   def admin_or_current_user_required
+     @user ||= User.find(params[:user_id] || params[:id] )
+     @a = @user && (@user.eql?(current_user))
+     redirect_to users_path unless (current_user && (current_user.admin? || @a) )
+   end
+  
 end

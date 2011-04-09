@@ -57,7 +57,7 @@ class ApplicationController < ActionController::Base
     def require_currentuser
       @user ||= User.find(params[:user_id] || params[:id] )
       unless (@user && (@user.eql?(current_user)))
-        redirect_to users_path and return false
+        redirect_to :controller => 'sessions', :action => 'new' and return false
       end
       return @user
     end
