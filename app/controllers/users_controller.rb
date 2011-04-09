@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_filter :require_no_user, :only => [:new, :create]
   before_filter :require_user, :only => [:show, :edit, :update]
+  before_filter :admin_user, :only => [:show]
   def new
     @title = "Sign up"
     @user = User.new
@@ -37,6 +38,13 @@ class UsersController < ApplicationController
     else
       render :action => :edit
     end
+  end
+  
+  private
+  
+  def admin_user
+    @user = @current_user
+    redirect_to users_path unless @user.admin?
   end
 
 end
