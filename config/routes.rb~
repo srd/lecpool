@@ -1,18 +1,35 @@
 Lecpool::Application.routes.draw do
-resources :user_sessions
-  resources :users
-  resources :password_resets
+  get "users/new"
+
+  get "users/index"
+
+  get "users/show"
+
+  get "users/edit"
+
+  get "users/create"
+
+  get "users/update"
+
+  get "user/new"
+
+  get "user/index"
+
+  get "user/show"
+
+  get "user/edit"
+
+  get "user/create"
+
+  get "user/update"
 
   get "user_sessions/new"
 
-  get "users/new"
-
   match '/contact', :to => 'home#contact'
   match '/about', :to => 'home#about'
-  match 'signup', :to => 'users#new'
   match 'login' => 'user_sessions#new', :as => :login
   match 'logout' => 'user_sessions#destroy', :as => :logout
-
+  
   root :to => 'home#index'
 
   # The priority is based upon order of creation:

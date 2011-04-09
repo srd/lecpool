@@ -1,0 +1,2 @@
+Welcome to Lecpool
+<%= render @users %>

@@ -6,6 +6,8 @@ gem 'rails', '3.0.4'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'mysql2'
+gem 'authlogic'
+gem 'rails3-generators'
 
 
 group :development do
